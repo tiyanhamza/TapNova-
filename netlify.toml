@@ -1,0 +1,30 @@
+[template.environment]
+  ADMIN_KEY = "Votre mot de passe admin (12 caracteres minimum, choisissez-le vous-meme)"
+  SUPABASE_URL = "Supabase > Project Settings > API > Project URL"
+  SUPABASE_SERVICE_KEY = "Supabase > Project Settings > API > cle service_role (secrete)"
+  CLOUDINARY_CLOUD_NAME = "Cloudinary > Cloud name"
+  CLOUDINARY_API_KEY = "Cloudinary > API Key"
+  CLOUDINARY_API_SECRET = "Cloudinary > API Secret"
+  CONTACT_WHATSAPP = "Votre numero WhatsApp pour le site d'accueil (ex : 0612345678)"
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+  command = "npm run build"
+[build.environment]
+  NODE_VERSION = "20"
+[functions]
+  included_files = ["lib/**"]
+[[redirects]]
+  from = "/c/*"
+  to = "/.netlify/functions/c"
+  status = 200
+[[redirects]]
+  from = "/api/admin"
+  to = "/.netlify/functions/admin"
+  status = 200
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
